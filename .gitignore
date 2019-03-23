@@ -1,0 +1,6 @@
+
+\.serverless/
+
+bin/
+
+*.code-workspace

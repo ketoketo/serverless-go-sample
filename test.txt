@@ -1,0 +1,5 @@
+curl -XGET --url https://31jpa2k0pd.execute-api.ap-northeast-1.amazonaws.com/dev/sample/test \
+  --header 'Content-Type: application/json' \
+  --data '{ "name": "This is a test", "rate": 40 }'
+
+env GOOS=linux go build -v -ldflags '-d -s -w' -a -tags netgo -installsuffix netgo -o bin/hello hello-world/main.go
