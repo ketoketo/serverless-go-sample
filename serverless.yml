@@ -75,8 +75,9 @@ functions:
 #    Check the event documentation for details
     events:
       - http:
-          path: sample/test
+          path: sample/{proxy+}
           method: get
+          cors: true
           # integration: lambda
 #          authorizer: cognitoARN
 #      - websocket: $connect
