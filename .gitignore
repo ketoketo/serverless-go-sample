@@ -4,3 +4,5 @@
 bin/
 
 *.code-workspace
+
+dlv
