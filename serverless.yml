@@ -20,7 +20,7 @@ service: lambda-golang # NOTE: update this with your service name
 provider:
   name: aws
   runtime: go1.x
-  role: myDefaultRole # デフォルト
+  role: lambdaCustRole # デフォルト
   timeout: 10
   memorySize: 128
 
@@ -106,10 +106,52 @@ functions:
 #    Define function environment variables here
 #    environment:
 #      variable2: value2
+  create-client:
+    handler: bin/clients
+    environment:
+      DB_TABLE: Clients
+    events:
+      - http:
+          path: clients
+          method: post
+          cors: true
+
+  fetch-clients:
+    handler: bin/clients
+    environment:
+      DB_TABLE: Clients
+    events:
+      - http:
+          path: clients
+          method: get
+          cors: true
+
+  fetch-client:
+    handler: bin/clients
+    environment:
+      DB_TABLE: Clients
+    events:
+      - http:
+          path: clients/{id}
+          method: get
+          cors: true
 
 # you can add CloudFormation resource templates here
 resources:
   Resources:
+    clientsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Clients
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
     # DynamoDBの構築
     # DynamoDbTable:
     #   Type: 'AWS::DynamoDB::Table'
