@@ -11,6 +11,7 @@ clean:
 GOBUILD=env GOOS=linux CGO_ENABLED=0 go build
 build:
 	$(GOBUILD) -o bin/hello hello-world/main.go
+	$(GOBUILD) -o bin/clients functions/clients/main.go
 
 debug:
 	$(GOBUILD) -o dlv github.com/derekparker/delve/cmd/dlv
