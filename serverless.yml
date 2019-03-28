@@ -136,6 +136,36 @@ functions:
           method: get
           cors: true
 
+  create-person:
+    handler: bin/persons
+    environment:
+      DB_TABLE: Persons
+    events:
+      - http:
+          path: persons
+          method: post
+          cors: true
+          
+  fetch-persons:
+    handler: bin/persons
+    environment:
+      DB_TABLE: Persons
+    events:
+      - http:
+          path: persons
+          method: get
+          cors: true
+
+  fetch-person:
+    handler: bin/persons
+    environment:
+      DB_TABLE: Persons
+    events:
+      - http:
+          path: persons/{id}
+          method: get
+          cors: true
+
 # you can add CloudFormation resource templates here
 resources:
   Resources:
@@ -143,6 +173,19 @@ resources:
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: Clients
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    personsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Persons
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
