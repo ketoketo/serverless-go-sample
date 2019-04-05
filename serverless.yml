@@ -187,11 +187,23 @@ resources:
       Properties:
         TableName: Persons
         AttributeDefinitions:
-          - AttributeName: id
+          - AttributeName: email
             AttributeType: S
+          - AttributeName: like
+            AttributeType: N
         KeySchema:
-          - AttributeName: id
+          - AttributeName: email
             KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: LikeKeyIndex
+            KeySchema: 
+              - AttributeName: like
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
