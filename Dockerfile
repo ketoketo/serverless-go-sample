@@ -20,9 +20,8 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py \
   && rm -rf /var/lib/apt/lists/* \
   && echo "export DOCKER_HOST='tcp://host.docker.internal:2375'" >> ~/.bashrc
 
-EXPOSE 5986
 EXPOSE 3000
 
-WORKDIR /c
+WORKDIR /go
 
 ENTRYPOINT ["/bin/bash"]

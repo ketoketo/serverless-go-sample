@@ -8,7 +8,7 @@ import (
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/tMatSuZ/serverless-go-sample/pkg/datastore"
 
-	"github.com/tMatSuZ/serverless-go-sample/functions/persons/model"
+	"github.com/tMatSuZ/serverless-go-sample/model"
 	helpers "github.com/tMatSuZ/serverless-go-sample/pkg/http"
 )
 
