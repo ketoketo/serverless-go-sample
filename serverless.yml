@@ -189,21 +189,34 @@ resources:
         AttributeDefinitions:
           - AttributeName: email
             AttributeType: S
-          - AttributeName: like
-            AttributeType: N
+          # - AttributeName: like
+          #   AttributeType: N
         KeySchema:
           - AttributeName: email
             KeyType: HASH
-        GlobalSecondaryIndexes:
-          - IndexName: LikeKeyIndex
-            KeySchema: 
-              - AttributeName: like
-                KeyType: HASH
-            Projection:
-              ProjectionType: ALL
-            ProvisionedThroughput:
-              ReadCapacityUnits: 1
-              WriteCapacityUnits: 1
+        # GlobalSecondaryIndexes:
+        #   - IndexName: LikeKeyIndex
+        #     KeySchema: 
+        #       - AttributeName: like
+        #         KeyType: HASH
+        #     Projection:
+        #       ProjectionType: ALL
+        #     ProvisionedThroughput:
+        #       ReadCapacityUnits: 1
+        #       WriteCapacityUnits: 1
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    sequencesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Sequences
+        AttributeDefinitions:
+          - AttributeName: name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: name
+            KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1

@@ -34,9 +34,8 @@ func ErrResponse(err error, code int) (Res, error) {
 }
 
 type RestHandler interface {
-	Get(id string, request Req) (Res, error)
+	Get(request Req) (Res, error)
 	Store(request Req) (Res, error)
-	List(request Req) (Res, error)
 }
 
 func ParseBody(request Req, castTo interface{}) error {
@@ -49,11 +48,7 @@ func Router(h RestHandler) RequestHandleFunc {
 	return func(request Req) (Res, error) {
 		switch request.HTTPMethod {
 		case "GET":
-			id := request.PathParameters["id"]
-			if id != "" {
-				return h.Get(id, request)
-			}
-			return h.List(request)
+			return h.Get(request)
 		case "POST":
 			return h.Store(request)
 		default:

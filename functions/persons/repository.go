@@ -1,4 +1,4 @@
-package model
+package main
 
 import (
 	uuid "github.com/satori/go.uuid"
@@ -6,15 +6,15 @@ import (
 	"github.com/tMatSuZ/serverless-go-sample/pkg/datastore"
 )
 
-type PersonRepository struct {
+type DatastoreRepository struct {
 	datastore datastore.Datastore
 }
 
-func NewPersonRepository(ds datastore.Datastore) *PersonRepository {
-	return &PersonRepository{datastore: ds}
+func NewDatastoreRepository(ds datastore.Datastore) *DatastoreRepository {
+	return &DatastoreRepository{datastore: ds}
 }
 
-func (r *PersonRepository) Get(id string) (*model.Person, error) {
+func (r *DatastoreRepository) Get(id string) (*model.Person, error) {
 	var person *model.Person
 	if err := r.datastore.Get(id, &person); err != nil {
 		return nil, err
@@ -22,13 +22,13 @@ func (r *PersonRepository) Get(id string) (*model.Person, error) {
 	return person, nil
 }
 
-func (r *PersonRepository) Store(person *model.Person) error {
+func (r *DatastoreRepository) Store(person *model.Person) error {
 	id, _ := uuid.NewV4()
 	person.ID = id.String()
 	return r.datastore.Store(person)
 }
 
-func (r *PersonRepository) List() (*[]model.Person, error) {
+func (r *DatastoreRepository) List() (*[]model.Person, error) {
 	var persons *[]model.Person
 	if err := r.datastore.List(&persons); err != nil {
 		return nil, err

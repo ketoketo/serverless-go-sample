@@ -38,7 +38,8 @@ func (h *Handler) Store(request helpers.Req) (helpers.Res, error) {
 	}, http.StatusCreated)
 }
 
-func (h *Handler) Get(id string, request helpers.Req) (helpers.Res, error) {
+func (h *Handler) Get(request helpers.Req) (helpers.Res, error) {
+	email := request.PathParameters["email"]
 	persons, err := h.repository.Get(id)
 	if err != nil {
 		return helpers.ErrResponse(err, http.StatusNotFound)
@@ -67,7 +68,7 @@ func main() {
 
 	ddb := datastore.NewDynamoDB(conn, os.Getenv("DB_TABLE"))
 
-	repository := model.NewPersonRepository(ddb)
+	repository := NewDatastoreRepository(ddb)
 
 	handler := &Handler{repository}
 
