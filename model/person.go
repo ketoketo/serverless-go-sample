@@ -1,6 +1,7 @@
 package model
 
 type Person struct {
+	Id       string `json:"id"`
 	Email    string `json:"email"`
 	Slackid  string `json:"slackid"`
 	Name     string `json:"name"`

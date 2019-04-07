@@ -187,12 +187,12 @@ resources:
       Properties:
         TableName: Persons
         AttributeDefinitions:
-          - AttributeName: email
+          - AttributeName: id
             AttributeType: S
           # - AttributeName: like
           #   AttributeType: N
         KeySchema:
-          - AttributeName: email
+          - AttributeName: id
             KeyType: HASH
         # GlobalSecondaryIndexes:
         #   - IndexName: LikeKeyIndex
